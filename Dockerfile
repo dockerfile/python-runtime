@@ -9,7 +9,7 @@ FROM dockerfile/python
 
 # Set instructions on build.
 ONBUILD RUN virtualenv /env
-ONBUILD ADD requirements.txt /app/requirements.txt
+ONBUILD ADD requirements.txt /app/
 ONBUILD RUN /env/bin/pip install -r /app/requirements.txt
 ONBUILD ADD . /app
 
