@@ -28,15 +28,17 @@ This project heavily borrowed code from Google's [google/python-runtime](https:/
 
 This image assumes that your application:
 
-* has a `requirements.txt` file to specify its dependencies.
+* has a `apt-requirements.txt` file to specify its system dependencies.
+* has a `requirements.txt` file to specify its python dependencies.
 * either has a `main.py` script as entrypoint or defines `CMD ["/env/bin/python", "/app/<custom-entry-file>.py"]` in its Dockerfile.
 * listens on port `8080`.
 
 When building your application docker image, `ONBUILD` triggers:
 
-1. Create a new virtualenv under the `/env` directory in the container.
-2. Fetch the dependencies listed in `requirements.txt` into the `virtualenv` using `pip install` and leverage docker caching appropriately.
-3. Copy the application sources under the `/app` directory in the container
+1. Install the dependencies listed in `apt-requirements.txt` using `apt-get install` and leverage docker caching appropriately.
+2. Create a new virtualenv under the `/env` directory in the container.
+3. Fetch the dependencies listed in `requirements.txt` into the `virtualenv` using `pip install` and leverage docker caching appropriately.
+4. Copy the application sources under the `/app` directory in the container
 
 * **Step 1**: Create a Dockerfile in your `Python` application directory with the following content:
 
