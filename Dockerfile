@@ -1,11 +1,17 @@
 #
 # Python runtime Dockerfile
 #
+# https://github.com/clementmangin/docker-python-runtime
+#
+# Derived from dockerfile/python-runtime
+#
 # https://github.com/dockerfile/python-runtime
 #
 
 # Pull base image.
 FROM dockerfile/python
+
+MAINTAINER Clément Mangin <clement.mangin@gmail.com>
 
 # Set instructions on build.
 ONBUILD ADD apt-requirements.txt /app/

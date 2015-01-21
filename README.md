@@ -1,13 +1,13 @@
 ## Python runtime Dockerfile
 
 
-This repository contains **Dockerfile** of [Python](https://www.python.org/) runtime for [Docker](https://www.docker.com/)'s [automated build](https://registry.hub.docker.com/u/dockerfile/python-runtime/) published to the public [Docker Hub Registry](https://registry.hub.docker.com/).
+This repository contains **Dockerfile** of [Python](https://www.python.org/) runtime for my [automated build](https://registry.hub.docker.com/u/clementmangin/python-runtime/) published to the public [Docker Hub Registry](https://registry.hub.docker.com/).
 
 This image is a base image that makes it easy to dockerize standard [Python](https://www.python.org/) application.
 
 It can automatically bundle a `Python` application with its dependencies and set the default command with no additional Dockerfile instructions.
 
-This project heavily borrowed code from Google's [google/python-runtime](https://registry.hub.docker.com/u/google/python-runtime/) Docker image.
+This project is based on [Docker](https://www.docker.com/)'s own [automated build](https://registry.hub.docker.com/u/dockerfile/python-runtime/), which itself heavily borrowed code from Google's [google/python-runtime](https://registry.hub.docker.com/u/google/python-runtime/) Docker image.
 
 
 ### Base Docker Image
@@ -19,9 +19,9 @@ This project heavily borrowed code from Google's [google/python-runtime](https:/
 
 1. Install [Docker](https://www.docker.com/).
 
-2. Download [automated build](https://registry.hub.docker.com/u/dockerfile/python-runtime/) from public [Docker Hub Registry](https://registry.hub.docker.com/): `docker pull dockerfile/python-runtime`
+2. Download [automated build](https://registry.hub.docker.com/u/clementmangin/python-runtime/) from public [Docker Hub Registry](https://registry.hub.docker.com/): `docker pull clementmangin/python-runtime`
 
-   (alternatively, you can build an image from Dockerfile: `docker build -t="dockerfile/python-runtime" github.com/dockerfile/python-runtime`)
+   (alternatively, you can build an image from Dockerfile: `docker build -t="clementmangin/python-runtime" github.com/clementmangin/python-runtime`)
 
 
 ### Usage
@@ -43,7 +43,7 @@ When building your application docker image, `ONBUILD` triggers:
 * **Step 1**: Create a Dockerfile in your `Python` application directory with the following content:
 
 ```dockerfile
-    FROM dockerfile/python-runtime
+    FROM clementmangin/python-runtime
 ```
 
 * **Step 2**: Build your container image by running the following command in your application directory:
