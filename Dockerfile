@@ -17,7 +17,7 @@ MAINTAINER Clément Mangin <clement.mangin@gmail.com>
 ONBUILD ADD apt-requirements.txt /app/
 ONBUILD RUN \
   apt-get update && \
-  cat /app/apt-requirements.txt | xargs apt-get install -y && \
+  cat /app/apt-requirements.txt | awk -F# '{print $1}' | xargs apt-get install -y && \
   rm -rf /var/lib/apt/lists/*
 ONBUILD RUN virtualenv /env
 ONBUILD ADD requirements.txt /app/
