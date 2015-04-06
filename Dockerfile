@@ -13,22 +13,21 @@ FROM python:2.7
 
 MAINTAINER Clément Mangin <clement.mangin@gmail.com>
 
-# Set instructions on build.
+# Set instructions on build
 ONBUILD ADD apt-requirements.txt /app/
 ONBUILD RUN \
   apt-get update && \
   cat /app/apt-requirements.txt | awk -F# '{print $1}' | xargs apt-get install -y && \
   rm -rf /var/lib/apt/lists/*
-ONBUILD RUN virtualenv /env
 ONBUILD ADD requirements.txt /app/
-ONBUILD RUN /env/bin/pip install -r /app/requirements.txt
+ONBUILD RUN pip install -r /app/requirements.txt
 ONBUILD ADD . /app
 
-# Define working directory.
+# Define working directory
 WORKDIR /app
 
-# Define default command.
-CMD ["/env/bin/python", "main.py"]
+# Define default entrypoint
+ENTRYPOINT ["python"]
 
 # Expose ports.
 EXPOSE 8080
