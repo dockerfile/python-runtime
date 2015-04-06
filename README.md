@@ -30,15 +30,12 @@ This image assumes that your application:
 
 * has a `apt-requirements.txt` file to specify its system dependencies.
 * has a `requirements.txt` file to specify its python dependencies.
-* either has a `main.py` script as entrypoint or defines `CMD ["/env/bin/python", "/app/<custom-entry-file>.py"]` in its Dockerfile.
-* listens on port `8080`.
 
 When building your application docker image, `ONBUILD` triggers:
 
 1. Install the dependencies listed in `apt-requirements.txt` using `apt-get install` and leverage docker caching appropriately.
-2. Create a new virtualenv under the `/env` directory in the container.
-3. Fetch the dependencies listed in `requirements.txt` into the `virtualenv` using `pip install` and leverage docker caching appropriately.
-4. Copy the application sources under the `/app` directory in the container
+2. Fetch the dependencies listed in `requirements.txt` into the `virtualenv` using `pip install` and leverage docker caching appropriately.
+3. Copy the application sources under the `/app` directory in the container
 
 * **Step 1**: Create a Dockerfile in your `Python` application directory with the following content:
 
@@ -46,16 +43,25 @@ When building your application docker image, `ONBUILD` triggers:
     FROM clementmangin/python-runtime
 ```
 
-* **Step 2**: Build your container image by running the following command in your application directory:
+* **Step 2**: Expose any port your app listens to and/or give the default command:
+
+```dockerfile
+    EXPOSE ["80"]
+
+    # ENTRYPOINT is set to ["python"] in the base image
+    CMD ["main.py"]
+```
+
+* **Step 3**: Build your container image by running the following command in your application directory:
 
 ```sh
     docker build -t="app" .
 ```
 
-* **Step 3**: Run application by mapping port `8080`:
+* **Step 4**: Run application by mapping port `80`:
 
 ```sh
-    APP=$(docker run -d -p 8080 app)
-    PORT=$(docker port $APP 8080 | awk -F: '{print $2}')
+    APP=$(docker run -d -p 80 app)
+    PORT=$(docker port $APP 80 | awk -F: '{print $2}')
     echo "Open http://localhost:$PORT/"
 ```
