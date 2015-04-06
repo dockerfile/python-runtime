@@ -9,7 +9,7 @@
 #
 
 # Pull base image.
-FROM dockerfile/python
+FROM python:2.7
 
 MAINTAINER Clément Mangin <clement.mangin@gmail.com>
 
