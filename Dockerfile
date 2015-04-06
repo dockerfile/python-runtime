@@ -28,6 +28,3 @@ WORKDIR /app
 
 # Define default entrypoint
 ENTRYPOINT ["python"]
-
-# Expose ports.
-EXPOSE 8080
